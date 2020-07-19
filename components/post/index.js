@@ -1,4 +1,6 @@
 import Head from 'next/head'
+import { useEffect } from 'react'
+import { setupTwoslashHovers } from 'gatsby-remark-shiki-twoslash/dist/dom'
 
 import Navigation from './navigation'
 import Page from '@components/page'
@@ -24,6 +26,8 @@ const Post = ({
   previous,
   next
 }) => {
+  useEffect(setupTwoslashHovers, [])
+
   return (
     <Page
       slug={slug}
