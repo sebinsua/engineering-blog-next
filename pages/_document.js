@@ -1,36 +1,19 @@
 import React from 'react'
 import Document, { Html, Head, Main, NextScript } from 'next/document'
+import { InitializeColorMode } from 'theme-ui'
 
-import { themeStorageKey } from '@lib/theme'
-const bgVariableName = '--bg'
+export default class MyDocument extends Document {
+  static async getInitialProps(ctx) {
+    const initialProps = await Document.getInitialProps(ctx)
+    return { ...initialProps }
+  }
 
-class MyDocument extends Document {
   render() {
     return (
       <Html lang="en">
         <Head />
         <body>
-          <script
-            dangerouslySetInnerHTML={{
-              __html: `(function() {
-                try {
-                  var outdatedValue = localStorage.getItem('light-mode')
-
-                  if (outdatedValue) {
-                    localStorage.setItem('${themeStorageKey}', 'light')
-                    localStorage.removeItem('light-mode')
-                  }
-
-                  var mode = localStorage.getItem('${themeStorageKey}')
-                  if (!mode) return
-                  document.documentElement.classList.add(mode)
-                  var bgValue = getComputedStyle(document.documentElement)
-                    .getPropertyValue('${bgVariableName}')
-                  document.documentElement.style.background = bgValue
-                } catch (e) {}
-              })()`
-            }}
-          />
+          <InitializeColorMode />
           <Main />
           <NextScript />
         </body>
@@ -38,5 +21,3 @@ class MyDocument extends Document {
     )
   }
 }
-
-export default MyDocument

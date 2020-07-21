@@ -1,7 +1,6 @@
+/* @jsx jsx */
+import { jsx } from 'theme-ui'
 import NextLink from 'next/link'
-import cn from 'classnames'
-
-import styles from './link.module.css'
 
 const canPrefetch = href => {
   if (!href || !href.startsWith('/')) {
@@ -9,6 +8,17 @@ const canPrefetch = href => {
   }
 
   return true
+}
+
+const resetCss = {
+  outline: 'none',
+  color: 'inherit',
+  textDecoration: 'none'
+}
+const grayCss = {
+  color: 'gray',
+  ':hover': { color: 'primary' },
+  ':focus': { color: 'primary' }
 }
 
 const Link = ({
@@ -20,14 +30,13 @@ const Link = ({
   className,
 
   // Styling
-  underline,
   gray,
   ...props
 }) => {
-  const c = cn(className, styles.reset, {
-    [styles.gray]: gray,
-    [styles.underline]: underline
-  })
+  const sx = {
+    ...resetCss,
+    ...(gray ? grayCss : {})
+  }
 
   if (external) {
     return (
@@ -35,7 +44,8 @@ const Link = ({
         href={href}
         target="_blank"
         rel="noopener noreferrer"
-        className={c}
+        className={className}
+        sx={sx}
         {...props}
       >
         {children}
@@ -54,7 +64,7 @@ const Link = ({
         {passHref ? (
           children
         ) : (
-          <a className={c} {...props}>
+          <a sx={sx} href={as} {...props}>
             {children}
           </a>
         )}

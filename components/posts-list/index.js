@@ -1,43 +1,60 @@
+/* @jsx jsx */
+import { jsx } from 'theme-ui'
 import { useState } from 'react'
 
-import TextEntry from '@components/entry/text'
-import styles from './posts-list.module.css'
+import Entry from '@components/entry'
+
+const numberOfPostsPerPage = 3
 
 const Posts = ({ slug, posts, paginate }) => {
-  const [showMore, setShowMore] = useState(3)
+  const [showMore, setShowMore] = useState(numberOfPostsPerPage)
 
   return (
-    <>
-      <ul className={styles.container}>
-        {posts.slice(0, paginate ? showMore : undefined).map(post => {
-          return (
-            <TextEntry
-              key={`post-item-${post.slug}`}
-              href="/[slug]"
-              as={`/${post.slug}`}
-              title={`${post.title}`}
-              category={post.category}
-            />
-          )
-        })}
-        {paginate && showMore < posts.length && (
-          <button
-            onClick={() => {
-              setShowMore(showMore + 3)
-            }}
-            className={styles.button}
-          >
-            Show More
-          </button>
-        )}
-        <TextEntry
-          key={`new`}
-          href="https://github.com/gaearon/whatthefuck.is/issues/"
-          title={'request a definition'}
-          category={null}
-        />
-      </ul>
-    </>
+    <ul sx={{ listStyleType: 'none', m: 0, p: 0 }}>
+      {posts.slice(0, paginate ? showMore : undefined).map(post => {
+        return (
+          <Entry
+            key={`post-item-${post.slug}`}
+            href="/[slug]"
+            as={`/${post.slug}`}
+            title={`${post.title}`}
+            category={post.category}
+            date={post.date}
+            description={post.description}
+          />
+        )
+      })}
+      {paginate && showMore < posts.length && (
+        <button
+          onClick={() => {
+            setShowMore(showMore + numberOfPostsPerPage)
+          }}
+          sx={{
+            mt: 2,
+            p: 2,
+            borderRadius: 3,
+            cursor: 'pointer',
+            fontWeight: 500,
+            fontSize: 2,
+            border: 'none',
+            outline: 'none',
+            color: 'secondary',
+            backgroundColor: 'muted',
+            ':hover': {
+              color: 'primary'
+            },
+            ':focus': {
+              color: 'primary'
+            },
+            ':active': {
+              backgroundColor: 'muted'
+            }
+          }}
+        >
+          Show More
+        </button>
+      )}
+    </ul>
   )
 }
 

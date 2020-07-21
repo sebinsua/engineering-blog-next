@@ -1,53 +1,120 @@
+/** @jsx jsx */
 import Link from 'next/link'
+import { jsx, useColorMode, Styled } from 'theme-ui'
+import { useRouter } from 'next/router'
 
-import styles from './header.module.css'
 import LogoIcon from '@components/icons/logo'
-import useTheme from '@lib/theme'
-import Moon from '@components/icons/moon'
-import Sun from '@components/icons/sun'
-import useMounted from '@lib/use-mounted'
+import useTheme from '@lib/use-theme'
+
+import Switch from './switch'
+
+import sun from './sun.png'
+import moon from './moon.png'
+
+import { blog } from '../../package.json'
+
+const rootPath = '/'
+
+const Title = ({ location, children }) => {
+  if (location.pathname === rootPath) {
+    return (
+      <Styled.h1
+        sx={{
+          my: 0,
+          fontSize: 6
+        }}
+      >
+        <Link href="/" passHref>
+          <a
+            sx={{
+              color: `inherit`,
+              boxShadow: `none`,
+              textDecoration: `none`
+            }}
+            aria-current="page"
+            aria-label="Navigate Home"
+          >
+            {children}
+          </a>
+        </Link>
+      </Styled.h1>
+    )
+  } else {
+    return (
+      <Styled.h3
+        sx={{
+          my: 0,
+          fontSize: 4
+        }}
+      >
+        <Link href="/" passHref>
+          <a
+            sx={{
+              boxShadow: `none`,
+              textDecoration: `none`,
+              color: `primary`
+            }}
+            aria-label="Navigate Home"
+          >
+            {children}
+          </a>
+        </Link>
+      </Styled.h3>
+    )
+  }
+}
+
+const iconCss = { pointerEvents: `none`, margin: 4 }
+
+const checkedIcon = (
+  <img
+    alt="moon indicating dark mode"
+    src={moon}
+    width="16"
+    height="16"
+    role="presentation"
+    css={iconCss}
+  />
+)
+
+const uncheckedIcon = (
+  <img
+    alt="sun indicating light mode"
+    src={sun}
+    width="16"
+    height="16"
+    role="presentation"
+    css={iconCss}
+  />
+)
 
 const Header = ({ slug, title }) => {
-  const isMounted = useMounted()
-  const { theme, toggleTheme } = useTheme()
+  const [theme, toggleTheme] = useTheme()
+
+  const isDark = theme !== 'light'
+
+  const location = useRouter()
 
   return (
-    <nav className={styles.nav}>
-      <div className={styles.header}>
-        <span>
-          <Link href="/">
-            <a
-              aria-label="Navigate Home"
-              className={slug ? styles.home : styles.slug}
-            >
-              whatthefuck.is
-            </a>
-          </Link>
-          <span className={styles.tagline}>
-            &nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;{'  '}
-            {slug ? (
-              <b>
-                <span style={{ color: 'var(--accent)' }}>{title}</span>
-              </b>
-            ) : (
-              <>Dan’s&nbsp;JavaScript&nbsp;Glossary</>
-            )}
-          </span>
-        </span>
-        <button
-          className={styles.command}
-          onClick={toggleTheme}
-          aria-label="Toggle Theme"
-        >
-          {isMounted &&
-            (theme === 'light' ? (
-              <Moon color="var(--fg)" size={30} key="icon-light" />
-            ) : (
-              <Sun color="var(--fg)" size={30} key="icon-dark" />
-            ))}
-        </button>
-      </div>
-    </nav>
+    <header>
+      <nav
+        sx={{
+          display: `flex`,
+          justifyContent: `space-between`,
+          alignItems: `center`,
+          height: 60
+        }}
+      >
+        <Title location={location}>{blog.title}</Title>
+        <Switch
+          aria-label={`Toggle dark mode ${isDark ? `off` : `on`}`}
+          checkedIcon={checkedIcon}
+          uncheckedIcon={uncheckedIcon}
+          checked={isDark}
+          onChange={toggleTheme}
+        />
+      </nav>
+    </header>
   )
 }
 

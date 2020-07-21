@@ -1,8 +1,9 @@
+/* @jsx jsx */
 import Head from 'next/head'
+import { jsx } from 'theme-ui'
 
 import Page from '@components/page'
 import Link from '@components/link'
-import styles from './error.module.css'
 
 const Error = ({ status }) => {
   return (
@@ -14,25 +15,15 @@ const Error = ({ status }) => {
       {status === 404 ? (
         <>
           <h1>404</h1>
-          <p>
-            The term you are looking for doesn't exist. You can{' '}
-            <Link
-              underline
-              href="https://github.com/gaearon/whatthefuck.is/issues/new?assignees=&labels=&template=what-the-fuck-is-_____-.md&title="
-            >
-              suggest this term
-            </Link>
-            .
-          </p>
 
-          <Link underline href="/">
-            Go Home
+          <Link href="/" passHref>
+            <a sx={{ color: 'white' }}>Go Home</a>
           </Link>
         </>
       ) : (
-        <section className={styles.section}>
-          <span>{status || 'пиздец'}</span>
-          <p>For fuck’s sake.</p>
+        <section>
+          <span>{status}</span>
+          <p>Oh no.</p>
         </section>
       )}
     </Page>

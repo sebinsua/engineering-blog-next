@@ -1,29 +1,32 @@
-import React from 'react'
+/** @jsx jsx */
 import Router from 'next/router'
 import App from 'next/app'
-import nprogress from 'nprogress'
+import NProgress from 'next-nprogress-emotion'
 import debounce from 'lodash.debounce'
+import { jsx, ThemeProvider } from 'theme-ui'
 
-// Only show nprogress after 500ms (slow loading)
-const start = debounce(nprogress.start, 500)
-Router.events.on('routeChangeStart', start)
-Router.events.on('routeChangeComplete', url => {
-  start.cancel()
-  nprogress.done()
-  window.scrollTo(0, 0)
-})
-Router.events.on('routeChangeError', () => {
-  start.cancel()
-  nprogress.done()
-})
+import theme from '@lib/theme'
 
+import 'typeface-inter'
 import '@styles/global.css'
 
-class MyApp extends App {
+export default class MyApp extends App {
   render() {
     const { Component, pageProps } = this.props
-    return <Component {...pageProps} />
+    return (
+      <ThemeProvider theme={theme}>
+        <NProgress spinner={false} />
+        <div
+          sx={{
+            maxWidth: `container`,
+            mx: `auto`,
+            px: 3,
+            pt: 4
+          }}
+        >
+          <Component {...pageProps} />
+        </div>
+      </ThemeProvider>
+    )
   }
 }
-
-export default MyApp

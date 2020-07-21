@@ -1,10 +1,10 @@
-import Head from 'next/head'
+/* @jsx jsx */
 import { useEffect } from 'react'
+import { jsx, BaseStyles, Styled } from 'theme-ui'
 import { setupTwoslashHovers } from 'gatsby-remark-shiki-twoslash/dist/dom'
 
 import Navigation from './navigation'
 import Page from '@components/page'
-import styles from './post.module.css'
 
 function escapeHtml(unsafe) {
   return unsafe
@@ -18,6 +18,7 @@ function escapeHtml(unsafe) {
 const Post = ({
   title,
   slug,
+  author,
   html,
   hidden,
   og,
@@ -29,29 +30,28 @@ const Post = ({
   useEffect(setupTwoslashHovers, [])
 
   return (
-    <Page
-      slug={slug}
-      title={title}
-      description={description}
-      image={
-        og && og === true
-          ? `https://res.cloudinary.com/dsdlhtnpw/image/upload/${slug}.png`
-          : og
-      }
-    >
-      <Head>
-        {hidden && <meta name="robots" content="noindex" />}
-        {date && <meta name="date" content={date} />}
-      </Head>
-
-      <article
-        dangerouslySetInnerHTML={{
-          __html: `${html}`
-        }}
-      />
+    <>
+      <header>
+        <Styled.h2>{title}</Styled.h2>
+        <div
+          sx={{
+            mt: -3,
+            mb: 3
+          }}
+        >
+          <small>{[author, date].filter(Boolean).join(' · ')}</small>
+        </div>
+      </header>
+      <BaseStyles>
+        <article
+          dangerouslySetInnerHTML={{
+            __html: `${html}`
+          }}
+        />
+      </BaseStyles>
 
       <Navigation previous={previous} next={next} />
-    </Page>
+    </>
   )
 }
 

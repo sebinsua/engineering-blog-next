@@ -1,11 +1,6 @@
 import NextHead from 'next/head'
 
-const Head = ({
-  title = 'whatthefuck.is',
-  description = 'Dan’s JavaScript Glossary',
-  image,
-  children
-}) => {
+const Head = ({ title, description, siteUrl, image, children }) => {
   return (
     <NextHead>
       {/* Title */}
@@ -20,15 +15,15 @@ const Head = ({
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <meta httpEquiv="Content-Language" content="en" />
 
-      <meta name="twitter:site" content="@dan_abramov" />
-      <meta name="apple-mobile-web-app-title" content="whatthefuck.is" />
-      <meta name="author" content="Dan Abramov" />
+      <meta name="apple-mobile-web-app-title" content="" />
+      {/* TODO: Fix the author. */}
+      <meta name="author" content="Engineering Team" />
 
       {/* RSS feed */}
       <link
         rel="alternate"
         type="application/rss+xml"
-        title="RSS Feed for whatthefuck.is"
+        title={`RSS Feed for ${siteUrl}`}
         href="/feed.xml"
       />
 
@@ -37,13 +32,14 @@ const Head = ({
       <meta name="theme-color" content="#ffffff" />
 
       {/* Inter font */}
-      <link
+      {/* TODO: Fix the inter font loading... */}
+      {/* <link
         rel="preload"
         href="https://assets.vercel.com/raw/upload/v1587415301/fonts/2/inter-var-latin.woff2"
         as="font"
         type="font/woff2"
         crossOrigin="anonymous"
-      />
+      /> */}
 
       {children}
     </NextHead>

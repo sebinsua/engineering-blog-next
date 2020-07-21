@@ -1,27 +1,48 @@
+/* @jsx jsx */
+import { jsx, Flex } from 'theme-ui'
 import Link from '@components/link'
 
-import styles from './navigation.module.css'
-
-const Previous = ({ previous, next }) => {
+const Navigation = ({ previous, next }) => {
   return (
-    <div className={styles.navigation}>
-      <div className={styles.previous}>
-        {previous && (
-          <Link href="/[slug]" gray as={`/${previous.slug}`}>
-            <div className={styles.title}>← {previous.title}</div>
-          </Link>
-        )}
-      </div>
+    <footer>
+      <hr
+        sx={{
+          my: 3,
+          color: 'muted'
+        }}
+      />
+      {(previous || next) && (
+        <nav>
+          <Flex
+            as="ul"
+            sx={{
+              flexWrap: `wrap`,
+              flexDirection: next && previous === null ? 'row-reverse' : 'row',
+              justifyContent: `space-between`,
+              listStyle: `none`,
+              padding: 0
+            }}
+          >
+            {previous && (
+              <li>
+                <Link href="/[slug]" gray as={`/${previous.slug}`}>
+                  ← {previous.title}
+                </Link>
+              </li>
+            )}
 
-      <div className={styles.next}>
-        {next && (
-          <Link href="/[slug]" gray as={`/${next.slug}`}>
-            <div className={styles.title}>{next.title} →</div>
-          </Link>
-        )}
-      </div>
-    </div>
+            {next && (
+              <li>
+                <Link href="/[slug]" gray as={`/${next.slug}`}>
+                  {next.title} →
+                </Link>
+              </li>
+            )}
+          </Flex>
+        </nav>
+      )}
+    </footer>
   )
 }
 
-export default Previous
+export default Navigation

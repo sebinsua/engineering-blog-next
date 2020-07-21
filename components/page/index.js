@@ -1,33 +1,32 @@
+/* @jsx jsx */
+import { jsx } from 'theme-ui'
 import SEO from '@components/seo'
 import Header from '@components/header'
 import Footer from '@components/footer'
-import styles from './page.module.css'
+
+import { blog } from '../../package.json'
 
 const Page = ({
-  header = true,
-  footer = true,
-  slug,
   title,
-  description,
+  description = blog.description,
+  siteUrl = blog.siteUrl,
   image,
-  showSlug = true,
+  slug,
   children
 }) => {
   return (
-    <div className={styles.wrapper}>
+    <>
       <SEO
-        title={`${
-          (title ? `What the fuck is ${title}?` : 'What the fuck is ...?') +
-          ' ・ Dan’s JavaScript Glossary'
-        }`}
+        title={[title, blog.title].filter(Boolean).join(' · ')}
         description={description}
+        siteUrl={siteUrl}
         image={image}
       />
 
-      {showSlug && <Header slug={showSlug && slug} title={showSlug && title} />}
-      <main className={styles.main}>{children}</main>
+      <Header slug={slug} title={title} />
+      <main sx={{ mt: 4 }}>{children}</main>
       <Footer slug={slug} />
-    </div>
+    </>
   )
 }
 
