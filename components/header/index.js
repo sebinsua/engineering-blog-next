@@ -3,7 +3,6 @@ import Link from 'next/link'
 import { jsx, useColorMode, Styled } from 'theme-ui'
 import { useRouter } from 'next/router'
 
-import LogoIcon from '@components/icons/logo'
 import useTheme from '@lib/use-theme'
 
 import Switch from './switch'

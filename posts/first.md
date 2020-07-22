@@ -3,7 +3,7 @@ title: The first post
 slug: first-post
 date: '2018-09-19T00:00:00.000Z'
 description: This is the first post
-author: Seb Insua
+author: Engineering Team
 ---
 
 Here is some text.

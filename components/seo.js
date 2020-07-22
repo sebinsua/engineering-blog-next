@@ -1,6 +1,6 @@
 import NextHead from 'next/head'
 
-const Head = ({ title, description, siteUrl, image, children }) => {
+const Head = ({ title, author, description, siteUrl, image, children }) => {
   return (
     <NextHead>
       {/* Title */}
@@ -15,9 +15,9 @@ const Head = ({ title, description, siteUrl, image, children }) => {
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <meta httpEquiv="Content-Language" content="en" />
 
-      <meta name="apple-mobile-web-app-title" content="" />
-      {/* TODO: Fix the author. */}
-      <meta name="author" content="Engineering Team" />
+      <meta name="apple-mobile-web-app-title" content={title} />
+
+      <meta name="author" content={author} />
 
       {/* RSS feed */}
       <link
@@ -30,16 +30,6 @@ const Head = ({ title, description, siteUrl, image, children }) => {
       {/* TODO: Favicons */}
       <meta name="msapplication-TileColor" content="#ffffff" />
       <meta name="theme-color" content="#ffffff" />
-
-      {/* Inter font */}
-      {/* TODO: Fix the inter font loading... */}
-      {/* <link
-        rel="preload"
-        href="https://assets.vercel.com/raw/upload/v1587415301/fonts/2/inter-var-latin.woff2"
-        as="font"
-        type="font/woff2"
-        crossOrigin="anonymous"
-      /> */}
 
       {children}
     </NextHead>

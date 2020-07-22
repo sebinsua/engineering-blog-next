@@ -10,6 +10,7 @@ const Page = ({
   title,
   description = blog.description,
   siteUrl = blog.siteUrl,
+  author = blog.author,
   image,
   slug,
   children
@@ -20,6 +21,7 @@ const Page = ({
         title={[title, blog.title].filter(Boolean).join(' · ')}
         description={description}
         siteUrl={siteUrl}
+        author={author}
         image={image}
       />
 
