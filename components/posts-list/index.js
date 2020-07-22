@@ -43,9 +43,6 @@ const Posts = ({ slug, posts, paginate }) => {
             ':hover': {
               color: 'primary'
             },
-            ':focus': {
-              color: 'primary'
-            },
             ':active': {
               backgroundColor: 'muted'
             }
