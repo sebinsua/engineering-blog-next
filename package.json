@@ -13,7 +13,7 @@
     "lint": "prettier --write '**/*.js'",
     "dev": "next-remote-watch posts",
     "build": "yarn rss && next build",
-    "rss": "node lib/rss"
+    "rss": "node scripts/rss"
   },
   "pre-commit": "lint",
   "dependencies": {
