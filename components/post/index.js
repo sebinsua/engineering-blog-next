@@ -27,7 +27,7 @@ const Post = ({
   previous,
   next
 }) => {
-  useEffect(setupTwoslashHovers, [])
+  useEffect(setupTwoslashHovers, [slug])
 
   return (
     <>
