@@ -17,8 +17,7 @@ const resetCss = {
 }
 const grayCss = {
   color: 'gray',
-  ':hover': { color: 'primary' },
-  ':focus': { color: 'primary' }
+  ':hover': { color: 'primary' }
 }
 
 const Link = ({
