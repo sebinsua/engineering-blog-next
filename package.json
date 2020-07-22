@@ -7,7 +7,7 @@
     "title": "Engineering",
     "description": "",
     "author": "Engineering Team",
-    "siteUrl": "http://domain.com"
+    "siteUrl": "://engineering-blog-next.vercel.app"
   },
   "scripts": {
     "lint": "prettier --write '**/*.js'",
